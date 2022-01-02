@@ -1,0 +1,33 @@
+{
+  "name": "@rougefw/colorgenerator",
+  "version": "1.0.0",
+  "description": "Generate an harmonious subset of colors from a main color and a few practical parameters ",
+  "main": "index.js",
+  "scripts": {
+    "test": "test:watch"
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tumulte/colorGenerator.git"
+  },
+  "keywords": [
+    "color generation",
+    "color",
+    "harmony"
+  ],
+  "author": "Tumulte",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tumulte/colorGenerator/issues"
+  },
+  "homepage": "https://github.com/Tumulte/colorGenerator#readme",
+  "dependencies": {
+    "@rougefw/colorhelper": "^1.1.0"
+  },
+  "devDependencies": {
+  "@babel/preset-env": "^7.16.4",
+  "babel-jest": "^27.4.4",
+  "jest": "^27.4.4"
+}
+}
