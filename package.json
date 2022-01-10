@@ -4,7 +4,7 @@
   "description": "Generate an harmonious subset of colors from a main color and a few practical parameters ",
   "main": "index.js",
   "scripts": {
-    "test": "test:watch"
+    "test": "jest --watch"
   },
   "repository": {
     "type": "git",
@@ -28,5 +28,17 @@
     "@babel/preset-env": "^7.16.4",
     "babel-jest": "^27.4.4",
     "jest": "^27.4.4"
-  }
+  },
+  "jest": {
+    "verbose": false,
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      ".*\\.(js)$": "babel-jest",
+      ".*\\.(vue)$": "vue-jest"
+    }
+}
 }

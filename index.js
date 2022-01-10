@@ -150,14 +150,19 @@ export function generateColorSet(dominant) {
   const addCombination = function(combination) {
     combination.hue = base360(combination.hue);
     const hex = colorUtils.hslToHex(combination).getString();
-    self.colorCollection.combinationCollection.push({
+    const combinationCollection = self.colorCollection.combinationCollection
+    combinationCollection.push({
       hex: hex,
       hue: combination.hue,
       light: combination.light,
       saturation: combination.saturation
     });
 
+
     addSubCombination();
+    const latestCombination = combinationCollection[combinationCollection.length - 1]
+    latestCombination.subTextCombination = createTextSubCombination(latestCombination.subCombination)
+
   };
   /**
    *
@@ -218,9 +223,31 @@ export function generateColorSet(dominant) {
     }
     return subCombination;
   };
-  /**
-   *
-   */
+
+  const createTextSubCombination = function(combination) {
+    const invert = [...combination].reverse()
+    const textSub = []
+    combination.forEach((item, index) => {
+      let diff = 0
+
+      const offset = 50
+      if((item.light - invert[index].light) < -offset || (item.light - invert[index].light) > offset) {
+        diff = invert[index].light
+      }
+      else if (item.light - 50 <= 0) {
+        diff = item.light + offset > 100 ? 100 : item.light + offset
+      } else {
+        diff = item.light - offset < 0 ? 0 : item.light - offset
+      }
+      const colorParams = {hue: invert[index].hue, saturation: invert[index].saturation, light: diff}
+      const hex = colorUtils.hslToHex(colorParams).getString()
+      colorParams.hex = hex
+      textSub.push(colorParams)
+
+    })
+    return textSub
+  }
+
   const addSubCombination = function() {
     const combinationCollection = self.colorCollection.combinationCollection;
 
@@ -260,14 +287,14 @@ export function generateColorSet(dominant) {
   };
 
   this.generate = function(
-    colors,
+    colors = [],
     {
-      count: count,
-      hue: { variation: hueVariation, curve: hueCurve, move: hueMove },
-      light: { variation: lightVariation, move: lightMove, curve: lightCurve },
-      saturation: { variation: satVariation, move: satMove, curve: satCurve },
-      full: full
-    }
+      count: count = 10,
+      hue: { variation: hueVariation = 0, curve: hueCurve = 0, move: hueMove = 0 } = {},
+      light: { variation: lightVariation = 5, move: lightMove = 0, curve: lightCurve = 0 } = {},
+      saturation: { variation: satVariation = 0, move: satMove = 0, curve: satCurve = 0} = {},
+      full: full = true
+    } = {}
   ) {
     this.count = count;
     this.hueVariation = hueVariation;
@@ -283,6 +310,7 @@ export function generateColorSet(dominant) {
     this.colorCollection.dominantSubCollection = createSubCombinationArray(
       this.hsl
     );
+    this.colorCollection.dominantTextSubCollection = createTextSubCombination(this.colorCollection.dominantSubCollection)
     this.colorCollection.combinationCollection = [];
     colors.forEach(item => {
       const saturation =
