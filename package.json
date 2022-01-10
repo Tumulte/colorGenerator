@@ -1,6 +1,6 @@
 {
   "name": "@rougefw/colorgenerator",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Generate an harmonious subset of colors from a main color and a few practical parameters ",
   "main": "index.js",
   "scripts": {
@@ -40,5 +40,5 @@
       ".*\\.(js)$": "babel-jest",
       ".*\\.(vue)$": "vue-jest"
     }
-}
+  }
 }
