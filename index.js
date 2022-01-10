@@ -333,6 +333,7 @@ export function generateColorSet(dominant) {
       },
       true
     );
+    this.colorCollection.graySubTextCollection = createTextSubCombination(this.colorCollection.graySubCollection)
     const vari = (() => {
       const mult = Math.round(this.hsl.hue / 60);
       const peak = 60 * mult;
