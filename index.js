@@ -1,4 +1,6 @@
 import { RfColorHelper } from "@rougefw/colorhelper";
+import  "core-js/features/array/for-each"
+import "core-js/features/object/entries"
 
 const colorUtils = new RfColorHelper();
 let curves = {
@@ -161,7 +163,7 @@ export function generateColorSet(dominant) {
 
     addSubCombination();
     const latestCombination = combinationCollection[combinationCollection.length - 1]
-    latestCombination.subTextCombination = createTextSubCombination(latestCombination.subCombination)
+    latestCombination.textSubCombination = createTextSubCombination(latestCombination.subCombination)
 
   };
   /**
@@ -204,42 +206,39 @@ export function generateColorSet(dominant) {
           .getString()
       };
     }
-    if (gray) {
-      subCombination.push({
-        hue: 0,
-        light: 0,
-        saturation: 0,
-        hex: "#000"
-      });
-      subCombination.push({
-        hue: 0,
-        light: 100,
-        saturation: 0,
-        hex: "#fff"
-      });
-    }
     if (self.full) {
       return fullIndex(subCombination);
     }
     return subCombination;
   };
-
+  const getDiff = function (offset, item, invert, param) {
+    let diff = 0
+    let mid = 50
+    if(param === 'light') {
+      mid = 60
+    }
+    if (param === 'light' && item.hue >= 200 && item.hue <= 300) {
+      mid = 75
+    }
+    if(Math.abs(item[param] - invert[param]) > offset) {
+      diff = invert[param]
+    }
+    else if (item[param] < mid) {
+      diff = item[param] + offset > 100 ? 100 : item[param] + offset
+    } else {
+      diff = item[param] - offset < 0 ? 0 : item[param] - offset
+    }
+    return diff
+  }
   const createTextSubCombination = function(combination) {
+    const half = Math.round(combination.length / 2)
     const invert = [...combination].reverse()
     const textSub = []
     combination.forEach((item, index) => {
-      let diff = 0
+      const lightDiff = getDiff(self.textLight, item, invert[index], 'light')
+      const satDiff = getDiff(self.textSaturation, item, invert[index], 'saturation')
 
-      const offset = 50
-      if((item.light - invert[index].light) < -offset || (item.light - invert[index].light) > offset) {
-        diff = invert[index].light
-      }
-      else if (item.light - 50 <= 0) {
-        diff = item.light + offset > 100 ? 100 : item.light + offset
-      } else {
-        diff = item.light - offset < 0 ? 0 : item.light - offset
-      }
-      const colorParams = {hue: invert[index].hue, saturation: invert[index].saturation, light: diff}
+      const colorParams = {hue: invert[index].hue, saturation: satDiff, light: lightDiff}
       const hex = colorUtils.hslToHex(colorParams).getString()
       colorParams.hex = hex
       textSub.push(colorParams)
@@ -290,6 +289,7 @@ export function generateColorSet(dominant) {
     colors = [],
     {
       count: count = 10,
+      text: {light: textLight = 50, saturation: textSaturation = 0, hue: textHue = 0} = {},
       hue: { variation: hueVariation = 0, curve: hueCurve = 0, move: hueMove = 0 } = {},
       light: { variation: lightVariation = 5, move: lightMove = 0, curve: lightCurve = 0 } = {},
       saturation: { variation: satVariation = 0, move: satMove = 0, curve: satCurve = 0} = {},
@@ -307,6 +307,9 @@ export function generateColorSet(dominant) {
     this.lightMove = lightMove;
     this.lightCurve = lightCurve;
     this.full = full;
+    this.textLight = textLight
+    this.textSaturation = textSaturation
+    this.textHue = textHue
     this.colorCollection.dominantSubCollection = createSubCombinationArray(
       this.hsl
     );
@@ -333,7 +336,7 @@ export function generateColorSet(dominant) {
       },
       true
     );
-    this.colorCollection.graySubTextCollection = createTextSubCombination(this.colorCollection.graySubCollection)
+    this.colorCollection.grayTextSubCollection = createTextSubCombination(this.colorCollection.graySubCollection)
     const vari = (() => {
       const mult = Math.round(this.hsl.hue / 60);
       const peak = 60 * mult;
@@ -344,21 +347,28 @@ export function generateColorSet(dominant) {
       saturation: this.hsl.saturation,
       light: this.hsl.light
     });
+    this.colorCollection.alertTextSubCollection = createTextSubCombination(this.colorCollection.alertSubCollection)
+
     this.colorCollection.warningSubCollection = createSubCombinationArray({
       hue: 60 + vari,
       saturation: this.hsl.saturation,
       light: this.hsl.light
     });
+    this.colorCollection.warningTextSubCollection = createTextSubCombination(this.colorCollection.warningSubCollection)
+
     this.colorCollection.successSubCollection = createSubCombinationArray({
       hue: 120 + vari * 2,
       saturation: this.hsl.saturation,
       light: this.hsl.light
     });
+    this.colorCollection.successTextSubCollection = createTextSubCombination(this.colorCollection.successSubCollection)
+
     this.colorCollection.infoSubCollection = createSubCombinationArray({
       hue: 240 + vari,
       saturation: this.hsl.saturation,
       light: this.hsl.light
     });
+    this.colorCollection.infoTextSubCollection = createTextSubCombination(this.colorCollection.infoSubCollection)
 
     return this.colorCollection;
   };
