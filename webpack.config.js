@@ -8,7 +8,11 @@ module.exports = {
   //path and filename of the final output
   output: {
     path: path.resolve(__dirname, ''),
-    filename: 'index.js'
+    filename: 'index.js',
+    library: {
+      name: 'colorGenerator',
+      type: 'umd',
+    },
   },
 
   //default mode is production
