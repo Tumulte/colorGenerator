@@ -1,6 +1,6 @@
 {
-  "name": "@rougefw/colorgenerator",
-  "version": "1.2.0",
+  "name": "@picaro/colorgenerator",
+  "version": "1.0.0",
   "description": "Generate an harmonious subset of colors from a main color and a few practical parameters ",
   "main": "index.js",
   "scripts": {
@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/Tumulte/colorGenerator#readme",
   "dependencies": {
-    "@rougefw/colorhelper": "^1.2.0",
+    "@picaro/colorhelper": "^1.0.0",
     "core-js": "^3.20.2"
   },
   "devDependencies": {

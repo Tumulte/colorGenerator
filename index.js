@@ -1,4 +1,4 @@
-import { RfColorHelper } from "@rougefw/colorhelper";
+import { RfColorHelper } from "@picaro/colorhelper";
 import  "core-js/features/array/for-each"
 import "core-js/features/object/entries"
 
@@ -296,20 +296,20 @@ export function generateColorSet(dominant) {
       full: full = true
     } = {}
   ) {
-    this.count = count;
-    this.hueVariation = hueVariation;
-    this.hueCurve = hueCurve;
-    this.hueMove = hueMove;
-    this.satVariation = satVariation;
-    this.satMove = satMove;
-    this.satCurve = satCurve;
-    this.lightVariation = lightVariation;
-    this.lightMove = lightMove;
-    this.lightCurve = lightCurve;
+    this.count = parseInt(count, 10);
+    this.hueVariation = parseInt(hueVariation, 10);
+    this.hueCurve = parseInt(hueCurve, 10);
+    this.hueMove = parseInt(hueMove, 10);
+    this.satVariation = parseInt(satVariation, 10);
+    this.satMove = parseInt(satMove, 10);
+    this.satCurve = parseInt(satCurve, 10);
+    this.lightVariation = parseInt(lightVariation, 10);
+    this.lightMove = parseInt(lightMove, 10);
+    this.lightCurve = parseInt(lightCurve, 10);
     this.full = full;
-    this.textLight = textLight
-    this.textSaturation = textSaturation
-    this.textHue = textHue
+    this.textLight = parseInt(textLight, 10)
+    this.textSaturation = parseInt(textSaturation, 10)
+    this.textHue = parseInt(textHue, 10)
     this.colorCollection.dominantSubCollection = createSubCombinationArray(
       this.hsl
     );
