@@ -4,7 +4,8 @@
   "description": "Generate an harmonious subset of colors from a main color and a few practical parameters ",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "build": "webpack --mode=production"
   },
   "repository": {
     "type": "git",
@@ -28,7 +29,9 @@
   "devDependencies": {
     "@babel/preset-env": "^7.16.4",
     "babel-jest": "^27.4.4",
-    "jest": "^27.4.4"
+    "jest": "^27.4.4",
+    "webpack": "^5.67.0",
+    "webpack-cli": "^4.9.2"
   },
   "jest": {
     "verbose": false,
