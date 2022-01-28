@@ -5,14 +5,19 @@ const path =  require('path');
 module.exports = {
   //path to entry paint
   entry: './src/index.js',
-  //path and filename of the final output
+  module: {
+    rules: [
+      {
+        test: /\.js?$/,
+        exclude: /(node_modules)/,
+        use: 'babel-loader',
+      },
+    ],
+  },
   output: {
     path: path.resolve(__dirname, ''),
     filename: 'index.js',
-    library: {
-      name: 'colorGenerator',
-      type: 'umd',
-    },
+    libraryTarget: 'umd',
   },
 
   //default mode is production
