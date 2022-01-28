@@ -5,7 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watch",
-    "build": "webpack --mode=production"
+    "build": "vite build"
+  },
+  "files": ["dist"],
+  "main": "./dist/colorGenerator.umd.js",
+  "module": "./dist/colorGenerator.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/colorGenerator.es.js",
+      "require": "./dist/colorGenerator.umd.js"
+    }
   },
   "repository": {
     "type": "git",
@@ -30,8 +39,8 @@
     "@babel/preset-env": "^7.16.4",
     "babel-jest": "^27.4.4",
     "jest": "^27.4.4",
-    "webpack": "^5.67.0",
-    "webpack-cli": "^4.9.2"
+    "vite": "^2.7.2",
+    "babel-loader": "^8.2.3"
   },
   "jest": {
     "verbose": false,

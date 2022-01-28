@@ -3,6 +3,6 @@ module.exports = {
     "^.+\\.(js|jsx)$": "babel-jest",
   },
   transformIgnorePatterns: [
-    "node_modules/(?!(@rougefw/colorhelper)/)"
+    "node_modules/(?!(@picaro/colorhelper)/)"
   ]
 };
