@@ -1,6 +1,6 @@
 {
   "name": "@picaro/colorgenerator",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Generate an harmonious subset of colors from a main color and a few practical parameters ",
   "main": "index.js",
   "scripts": {
