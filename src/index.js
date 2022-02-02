@@ -127,7 +127,10 @@ export function generateColorSet(dominant) {
       } else {
         value = baseValue + (i - count / 2) * variation - newOffset;
       }
-      valueCollection[i] = Math.round(curves[curveIndex][1](value / 100) * 100);
+      value = Math.round(curves[curveIndex][1](value / 100) * 100)
+      value = Math.max(value, 0)
+      value = Math.min(value, 100)
+      valueCollection[i] = value;
     }
     return valueCollection;
   };
