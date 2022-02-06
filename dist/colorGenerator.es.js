@@ -1342,7 +1342,7 @@ function generateColorSet(dominant) {
   };
   this.updateColor = function(newColor) {
     this.colorCollection.dominant = newColor;
-    if (newColor.hue) {
+    if (newColor.hue !== void 0) {
       this.hsl = newColor;
     } else {
       this.hsl = colorUtils.hexToHsl(newColor).getValueCollection();

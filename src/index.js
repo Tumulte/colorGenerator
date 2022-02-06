@@ -261,33 +261,13 @@ export function generateColorSet(dominant) {
    */
   this.updateColor = function(newColor) {
     this.colorCollection.dominant = newColor;
-    if (newColor.hue) {
+    if (newColor.hue !== undefined) {
       this.hsl = newColor;
     } else {
       this.hsl = colorUtils.hexToHsl(newColor).getValueCollection();
     }
     return this;
   };
-
-  this.combination = function() {
-    const tonic = this.hsl;
-    tonic.hue = this.hsl.hue + 180;
-    addCombination(tonic);
-    return this.colorCollection;
-  };
-  this.splitCombination = function() {
-    const baseHue = this.hsl.hue;
-    const tonic = this.hsl;
-    const split = 30;
-    tonic.hue = this.hsl.hue + (180 + split);
-    addCombination(tonic);
-    tonic.hue = baseHue;
-    tonic.hue = this.hsl.hue + (180 - split);
-    addCombination(tonic);
-
-    return this.colorCollection;
-  };
-
   this.generate = function(
     colors = [],
     {
