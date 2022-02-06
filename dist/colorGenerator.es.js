@@ -1349,23 +1349,6 @@ function generateColorSet(dominant) {
     }
     return this;
   };
-  this.combination = function() {
-    const tonic = this.hsl;
-    tonic.hue = this.hsl.hue + 180;
-    addCombination(tonic);
-    return this.colorCollection;
-  };
-  this.splitCombination = function() {
-    const baseHue = this.hsl.hue;
-    const tonic = this.hsl;
-    const split2 = 30;
-    tonic.hue = this.hsl.hue + (180 + split2);
-    addCombination(tonic);
-    tonic.hue = baseHue;
-    tonic.hue = this.hsl.hue + (180 - split2);
-    addCombination(tonic);
-    return this.colorCollection;
-  };
   this.generate = function(colors = [], {
     count = 10,
     text: { light: textLight = 50, saturation: textSaturation = 0, hue: textHue = 0 } = {},
