@@ -1,10 +1,10 @@
 {
-  "name": "@picaro/colorgenerator",
+  "name": "@picaro/bandana",
   "version": "1.2.1",
   "description": "Generate an harmonious subset of colors from a main color and a few practical parameters ",
   "main": "./dist/colorGenerator.umd.js",
   "scripts": {
-    "test": "jest --watch",
+    "test:watch": "vitest --watch",
     "build": "vite build"
   },
   "files": [
@@ -37,22 +37,10 @@
     "core-js": "^3.20.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0-0",
     "@babel/preset-env": "^7.16.4",
-    "babel-jest": "^27.4.4",
-    "jest": "^27.4.4",
+    "babel-loader": "^8.2.3",
     "vite": "^2.7.2",
-    "babel-loader": "^8.2.3"
-  },
-  "jest": {
-    "verbose": false,
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "vue"
-    ],
-    "transform": {
-      ".*\\.(js)$": "babel-jest",
-      ".*\\.(vue)$": "vue-jest"
-    }
+    "vitest": "^0.10.0"
   }
 }
